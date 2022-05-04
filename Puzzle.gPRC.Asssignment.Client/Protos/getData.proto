@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcGetDataClient";
+
+package getData; 
+
+service GetData{
+	rpc GET_DATA (GetDataRequest) returns (GetDataResponse);
+}
+
+message GetDataRequest {
+	
+string tableName = 1;
+repeated string columns = 2 ;
+repeated Filter filters = 3;
+int32 page_Start = 4 ;
+int32 page_End =5 ;
+repeated Columns data =6;
+}
+
+message GetDataResponse {
+	string query = 1;
+	int32 totalCount = 2 ;
+	int32 currentCount = 3 ;
+	repeated string schema = 4;
+	repeated Data data = 5;
+
+}
+
+
+enum OperationType {
+	Equal = 0;
+	NotEqual = 1 ;
+	GraterThan = 2 ;
+	GreaterAndEqual = 3 ;
+	LessThan = 4 ;
+	LessThanAndEqual = 5;
+}
+message Filter {
+	string ColumnName = 1;
+	OperationType Op =2 ;
+	string Value = 3; 
+}
+
+message Columns {
+
+	string columnName = 1;
+}
+message Data {
+
+	repeated string columnValue = 1;
+}

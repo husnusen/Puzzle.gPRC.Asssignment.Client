@@ -1,0 +1,23 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/duration.proto";
+
+
+option csharp_namespace = "GrpcHealthChecksClient";
+
+package healthChecks; 
+
+service HealthChecks{
+	rpc CheckHealth(google.protobuf.Empty)  returns (HealthReport);
+}
+
+message HealthReport {
+	 
+repeated string Entries = 1 ;
+string HealthStatus = 2;
+google.protobuf.Duration TotalDuration = 3 ; 
+int64 TotalDurationInMilliSeconds = 4 ;
+string ProcessId = 5;
+}
+
+ 
